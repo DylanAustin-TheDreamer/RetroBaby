@@ -118,8 +118,8 @@ def make_order(request):
         order_id = request.POST.get('order_id')
         customer_name = request.POST.get('first_name') + ' ' + request.POST.get('last_name')
         email = request.POST.get('email')
-        product_name = basket_items.values_list('product_name', flat=True)
-        quantity = basket_items.values_list('quantity', flat=True)
+        product_name = ", ".join(item.product_name for item in basket_items)
+        quantity = sum(item.quantity for item in basket_items)
         total_price = total
         order_date = request.POST.get('order_date')
         delivery_address_line_1 = request.POST.get('address_line1')
