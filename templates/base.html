@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="YQQ9d4wdUyTbaXfNO_mrHsswKSvD4DhLNqQSYKUL1-8" />
+    <meta name="description" content="RetroBaby - Your one-stop shop for unique pixel cards. Explore our collection and find the perfect card to fall in love with!">
+    <meta name="keywords" content="Romantic cards, gamer, gamers, gamer cards, pixel, pixels, pixel cards, valentines, valentines day">
+    <title>RetroBaby</title>
+    <link rel="preload" as="image" href="{% static 'images/hero-banner.jpg' %}">
+    <link rel="preload" as="image" href="{% static 'images/pixel-heart.png' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/pixel-heart.png' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Agu+Display&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/pixel-heart.png' %}" style="height: 35px;"> RetroBaby</a>
+    <button class="navbar-toggler" type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
+      <i class="fa-solid fa-bars" style="color: white; padding: 10px;"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'about' %}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'basket' %}">Basket <i class="fa-solid fa-basket-shopping"></i>{% if basket_count > 0 %}<span class="badge bg-danger ms-1">{{ basket_count }}</span>{% endif %}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+        <div>
+    </header>
+
+    <main>
+        <div class="container">
+            {% if message %}
+<div class="modal fade" id="basketModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Success!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+            <div class="alert alert-success">{{ message }}</div>
+      </div>
+      <div class="modal-footer">
+        <a href="{% url 'basket' %}" type="button" class="btn btn-primary">Go to Basket</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var modalEl = document.getElementById('basketModal');
+      var modal = new bootstrap.Modal(modalEl);
+      modal.show();
+  });
+</script>
+{% endif %}
+        </div>
+
+        {% block content %}
+        {% endblock %}
+        <div class="flex-grow">
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; From 2025 - <img src="{% static 'images/pixel-heart.png' %}" style="height: 24px;"> RetroBaby</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- font awesome script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-9ZQQx5O5wAeTkA5jKzMPQ5WJqlhg1Zf+K9ePf2H6P6H6kZGmC3fSfUj6eO6WvK2qK5V5w5w5w5w5w5w5w5w5w5w" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Custom script -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <!-- Confetti script -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
+<style>
+  #ageGate {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+  }
+  .gateContent {
+    text-align:center;
+    animation: fadeIn 0.5s ease;
+  }
+  #enterBtn {
+    padding: 12px 24px;
+    font-size: 18px;
+    margin-top: 20px;
+    cursor:pointer;
+    border:none;
+    border-radius:8px;
+    background:#1DB954; /* Spotify green for fun */
+    color:white;
+  }
+  @keyframes fadeIn {
+    from {opacity:0;}
+    to {opacity:1;}
+  }
+</style>
+
+
+
+<div id="hero">
+    <h1>Welcome to <img src="{% static 'images/pixel-heart.png' %}" style="height: 45px;"> RetroBaby</h1>
+</div>
+
+<section>
+<div class="container mt-4">
+  <br>
+  <div style="padding: 0;">
+    <div style="padding: 20px; background-color: rgb(50, 75, 90); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
+      <h1 style="color: rgb(255, 255, 255);">The Standard 2 player series!</h1>
+    </div>
+  </div>
+
+   <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+  <div class="col">
+    <div class="card">
+      <img src="{% static 'images/2 Player.jpg' %}" loading="lazy" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">2 Player</h5>
+        <p class="card-text">Wanna play 2 player?</p>
+        <p style="background-color: rgb(46, 46, 46); color: white; border-radius: 8px; padding: 10px;">The initial concept from RetroBaby... Greetings cards made for gamer lovers</p>
+        <br>
+        <p>Price: £3.99</p>
+        <form action="{% url 'add_to_basket' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="product_name" value="2 Player">
+            <label for="quantity">Quantity:</label>
+            <select name="quantity" id="quantity">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+            <input type="hidden" name="price" value="3.99">
+            <button type="submit" class="btn btn-primary" id="button">Add to Basket</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <img src="{% static 'images/Games Night.jpg' %}" loading="lazy" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Games</h5>
+        <p class="card-text">Games Night?</p>
+        <p style="background-color: rgb(46, 46, 46); color: white; border-radius: 8px; padding: 10px;">Another great greetings card brought to you by RetroBaby. Hey, who's that girl you like? Go on... play games together</p>
+        <br>
+        <p>Price: £3.99</p>
+        <form action="{% url 'add_to_basket' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="product_name" value="Games Night">
+            <label for="quantity">Quantity:</label>
+            <select name="quantity" id="quantity">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+            <input type="hidden" name="price" value="3.99">
+            <button type="submit" class="btn btn-primary" id="button">Add to Basket</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <img src="{% static 'images/Pizza.jpg' %}" loading="lazy" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Pizza</h5>
+        <p class="card-text">Shall we get pizza?</p>
+        <p style="background-color: rgb(46, 46, 46); color: white; border-radius: 8px; padding: 10px;">Another great greetings card brought to you by RetroBaby. Hey, not sure what to do this evening? Wanna order pizza or sumthin?</p>
+        <br>
+        <p>Price: £3.99</p>
+        <form action="{% url 'add_to_basket' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="product_name" value="Pizza">
+            <label for="quantity">Quantity:</label>
+            <select name="quantity" id="quantity">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+            <input type="hidden" name="price" value="3.99">
+            <button type="submit" class="btn btn-primary" id="button">Add to Basket</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section style="background-color: rgb(231, 219, 110);">
+  <div class="container mt-4">
+    <div class="d-flex flex-column align-items-center justify-content-center">
+    <h1 style="padding: 20px;
+        background-color: rgb(50, 75, 90);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); color: white;"><img src="{% static 'images/pixel-heart.png' %}" style="height: 45px;"> RetroBaby</h1>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

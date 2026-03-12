@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-4 d-flex justify-content-center align-items-center flex-column">
+<div id="paypal-button-container" style="width: 50vw; height: 50vh;"></div>
+
+<!-- <form action="{% url 'order_confirmation' %}" method="post" class="mt-4" style="max-width: 600px; margin: auto;">
+    {% csrf_token %}
+    <input type="hidden" name="order_id" value="{{ order_entry.order_id }}">
+    <input type="hidden" name="total" value="{{ total }}">
+</form>
+</div> -->
+
+<script src="https://www.paypal.com/sdk/js?client-id={{ PAYPAL_CLIENT_ID }}&currency=GBP"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+paypal.Buttons({
+  createOrder: function(data, actions) {
+    // Call your Django endpoint to create the order
+    return fetch("/api/paypal/create-order/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": "{{ csrf_token }}"
+      },
+      body: JSON.stringify({
+        order_id: "{{ order_entry.order_id }}",
+        total: "{{ total }}"
+      })
+    })
+    .then(res => res.json())
+    .then(data => data.id);  // Return PayPal Order ID
+  },
+
+  onApprove: function(data, actions) {
+    // Capture payment on your backend
+    return fetch(`/api/paypal/capture-order/${data.orderID}/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": "{{ csrf_token }}"
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      window.location.href = "/order_confirmation/";
+    });
+  },
+
+  onCancel: function(data) {
+    window.location.href = "/order_cancelled/";
+  }
+}).render("#paypal-button-container");
+});
+</script>
+
+{% endblock %}

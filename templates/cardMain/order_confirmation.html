@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-4 d-flex flex-column align-items-center justify-content-center">
+    {% if order_entry.status == 'paid' %}
+    <h1>Order Confirmation</h1>
+    <br>
+    <p>Thank you for your order, {{ order_entry.customer_name }}!</p>
+    <p><strong>Confirmation emails are NOT setup just yet. You will need to write down your order details for now. We are sorry for any inconvenience this may cause</strong></p>
+    <h2>Order ID: {{ order_entry.order_id }}</h2>
+    <br>
+    <div class=" text-center" style="font-size: x-large;">
+          <div class="card-body">
+            <p class="text-muted">Price: <strong>£{{ total }}</strong></p>
+          </div>
+  </div>
+  <br>
+    {% for item in order_entry.items.all %}
+    <div class="container mt-4 d-flex align-items-center justify-content-center">
+    <div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+        {% if item.product_name == "2 Player" %}
+        <img src="{% static 'images/2 Player.jpg' %}" loading="lazy" alt="2 Player" class="img-fluid rounded-start">
+        {% elif item.product_name == "Games Night" %}
+        <img src="{% static 'images/Games Night.jpg' %}" loading="lazy" alt="Co-op" class="img-fluid rounded-start">
+        {% elif item.product_name == "Pizza" %}
+        <img src="{% static 'images/Pizza.jpg' %}" loading="lazy" alt="Pizza" class="img-fluid rounded-start">
+        {% endif %}
+    </div>
+    <div class="col-md-8 text-center" style="font-size: x-large;">
+      <div class="card-body">
+        <p class="fw-bold">{{ item.product_name }}</p>
+        <p class="fw-light">Quantity: {{ item.quantity }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endfor %}
+
+<br>
+<div class="form-control" style="max-width: 600px; width: 100%;">
+    <h3><strong>Shipping Address:</strong></h3>
+    <p class="form-control">{{ order_entry.delivery_address_line_1 }}</p>
+    <p class="form-control">{{ order_entry.delivery_address_line_2 }}</p>
+    <p class="form-control">{{ order_entry.delivery_city }}, {{ order_entry.delivery_county }} {{ order_entry.delivery_post_code }}</p>
+</div>
+</div>
+{% else %}
+<div class="container mt-4 d-flex flex-column align-items-center justify-content-center">
+    <h1>Order Pending Payment - Payment may not have gone through!</h1>
+    <br>
+    <p class="form-control" style="font-size: x-large !important;">Your order ID is <strong>{{ order_entry.order_id }}</strong>.</p>
+    <p>Please complete your payment to process your order. You can email <strong>retrobaby@outlook.com</strong> to receive a payment link and your order will be updated.</p>
+</div>
+{% endif %}
+
+<script>
+  // Fire confetti when the page loads
+  window.onload = function() {
+    confetti({
+      particleCount: 150,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  };
+</script>
+{% endblock %}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Order Confirmation</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 8px; }
+        .order-header { font-size: 1.5em; margin-bottom: 10px; }
+        .order-details { margin-bottom: 20px; }
+        .order-items { margin-bottom: 20px; }
+        .order-items li { margin-bottom: 5px; }
+        .address { background: #f8f9fa; padding: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="order-header">Order Confirmation</div>
+    <p>Thank you for your order, {{ order_entry.customer_name }}!</p>
+    <p>Your order ID is <strong>{{ order_entry.order_id }}</strong>.</p>
+    <div class="order-details">
+        <h3>Order Details:</h3>
+        <ul class="order-items">
+            {% for item in items %}
+            <li>{{ item.product_name }} - Quantity: {{ item.quantity }} - Price: £{{ total }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="address">
+        <h4>Shipping Address:</h4>
+        <p>
+            {{ order_entry.delivery_address_line_1 }}<br>
+            {{ order_entry.delivery_address_line_2 }}<br>
+            {{ order_entry.delivery_city }}, {{ order_entry.delivery_county }} {{ order_entry.delivery_post_code }}
+        </p>
+    </div>
+    <p>If you have any questions, reply to this email.</p>
+    <p>Best regards,<br>RetroBaby Team</p>
+</div>
+</body>
+</html>

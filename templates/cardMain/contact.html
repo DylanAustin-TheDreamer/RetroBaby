@@ -1,0 +1,31 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
+<div class="container mt-4 d-flex justify-content-center align-items-center flex-column">
+    <h1>Contact Us</h1>
+    <br>
+
+<form class="row g-3" method="POST" action="{% url 'contactform' %}">
+    {% csrf_token %}
+    <div class="col-md-6">
+    <label for="inputFirstName4" class="form-label">First Name:</label>
+    <input type="name" class="form-control" id="inputFirstName4" placeholder="Enter your forename name here" name="first_name" required>
+  </div>
+  <div class="col-md-6">
+    <label for="inputLastName4" class="form-label">Last Name:</label>
+    <input type="name" class="form-control" id="inputLastName4" placeholder="Enter your surname here" name="last_name" required>
+  </div>
+  <div class="col-md-12">
+    <label for="inputMessage4" class="form-label">Message:</label>
+    <textarea class="form-control" id="inputMessage4" placeholder="Enter your message here" name="message" required></textarea>
+  </div>
+  <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">Email:</label>
+    <input type="email" class="form-control" id="inputEmail4" placeholder="Enter your email here" name="email" required>
+  </div>
+  <div class="col-6 d-flex justify-content-center align-items-end">
+    <input type="submit" class="btn btn-primary" value="Submit">
+  </div>
+  </form>
+</div>
+{% endblock %}

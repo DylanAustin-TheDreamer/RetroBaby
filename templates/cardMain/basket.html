@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% if basket %}
+<div class="container mt-4 d-flex flex-column align-items-center justify-content-center">
+    <h1>Basket</h1>
+    <br>
+    <p>Your basket contains the following items:</p>
+</div>
+
+{% if basket|length <= 1 %}
+<div class="container mt-4 d-flex align-items-center justify-content-center">
+  <div class="card mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          {% for item in basket %}
+            {% if item.product_name == "2 Player" %}
+            <img src="{% static 'images/2 Player.jpg' %}" loading="lazy" alt="2 Player" class="img-fluid rounded-start">
+            {% elif item.product_name == "Games Night" %}
+            <img src="{% static 'images/Games Night.jpg' %}" loading="lazy" alt="Co-op" class="img-fluid rounded-start">
+            {% elif item.product_name == "Pizza" %}
+            <img src="{% static 'images/Pizza.jpg' %}" loading="lazy" alt="Pizza" class="img-fluid rounded-start">
+            {% endif %}
+        </div>
+        <div class="col-md-8 text-center" style="font-size: x-large;">
+          <div class="card-body">
+            <p class="fw-bold">{{ item.product_name }}</p>
+            <p class="fw-light">Quantity: {{ item.quantity }}</p>
+            <p class="text-muted">Price: £{{ total }}</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+{% for item in basket %}
+<div class="container mt-4 d-flex align-items-center justify-content-center">
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+            {% if item.product_name == "2 Player" %}
+            <img src="{% static 'images/2 Player.jpg' %}" loading="lazy" alt="2 Player" class="img-fluid rounded-start">
+            {% elif item.product_name == "Games Night" %}
+            <img src="{% static 'images/Games Night.jpg' %}" loading="lazy" alt="Co-op" class="img-fluid rounded-start">
+            {% elif item.product_name == "Pizza" %}
+            <img src="{% static 'images/Pizza.jpg' %}" loading="lazy" alt="Pizza" class="img-fluid rounded-start">
+            {% endif %}
+        </div>
+        <div class="col-md-8 text-center" style="font-size: x-large;">
+          <div class="card-body">
+            <p class="fw-bold">{{ item.product_name }}</p>
+            <p class="fw-light">Quantity: {{ item.quantity }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  {% endfor %}
+  <div class=" text-center" style="font-size: x-large;">
+          <div class="card-body">
+            <p class="text-muted">Price: £{{ total }}</p>
+          </div>
+  </div>
+        {% endif %}
+
+<div class="container mt-4 d-flex flex-column align-items-center justify-content-center">
+    <form action="{% url 'clear_basket' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Clear Basket</button>
+    </form>
+    <br>
+    <form action="{% url 'checkout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success" style="padding: 20px; font-size: larger;">Proceed to Checkout</button>
+    </form>
+</div>
+{% else %}
+<section id="basket">
+<div class="container mt-4 d-flex justify-content-center align-items-center flex-column">
+    <h1>Basket</h1>
+    <br>
+    <p>Your basket is currently empty.</p>
+</div>
+</section>
+{% endif %}
+
+{% endblock %}
